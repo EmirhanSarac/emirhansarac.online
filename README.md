@@ -58,6 +58,4 @@ Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin:
 
 ## İletişim
 
-* **Yazar**: Emirhan Saraç
-* **GitHub**: [EmirhanSarac](https://github.com/EmirhanSarac)
 * **Discord**: [Codare Development](https://discord.gg/codare)
