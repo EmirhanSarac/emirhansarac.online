@@ -1,0 +1,33 @@
+{
+  "name": "emirhansarac.online",
+  "version": "1.0.0",
+  "description": "Bu proje, modern web teknolojilerini (Node.js, Express.js) kullanarak kişisel markamı, projelerimi ve çeşitli platformlardaki (Discord, Spotify, GitHub, YouTube) dinamik varlığını sergileyen bir web sitesidir.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "nodejs",
+    "express",
+    "personal-website"
+  ],
+  "author": "Emir",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "discord.js": "^14.x.x",
+    "dotenv": "^16.x.x",
+    "express": "^4.x.x",
+        "sqlite": "^5.x.x",  
+    "sqlite3": "^5.x.x" 
+
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^4.1.8"
+  }
+}

@@ -1,0 +1,872 @@
+:root {
+    --bg-color-light: #f8f9fa;
+    --text-color-light: #212529;
+    --text-muted-light: #6c757d;
+    --link-color-light: #0d6efd;
+    --link-hover-light: #0a58ca;
+    --border-color-light: #dee2e6;
+    --item-bg-light: #ffffff;
+    --card-shadow-light: rgba(0,0,0,0.08);
+
+    --bg-color-dark: #0c0c0c;
+    --text-color-dark: #e4e6eb;
+    --text-muted-dark: #868e96;
+    --link-color-dark: #79c0ff;
+    --link-hover-dark: #a5d6ff;
+    --border-color-dark: #222222;
+    --item-bg-dark: #161616;
+    --card-shadow-dark: rgba(0,0,0,0.2);
+
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+html[data-bs-theme="dark"] {
+    --current-bg-color: var(--bg-color-dark);
+    --current-text-color: var(--text-color-dark);
+    --current-text-muted: var(--text-muted-dark);
+    --current-link-color: var(--link-color-dark);
+    --current-link-hover: var(--link-hover-dark);
+    --current-border-color: var(--border-color-dark);
+    --current-item-bg: var(--item-bg-dark);
+    --card-shadow: var(--card-shadow-dark);
+}
+html[data-bs-theme="light"] {
+    --current-bg-color: var(--bg-color-light);
+    --current-text-color: var(--text-color-light);
+    --current-text-muted: var(--text-muted-light);
+    --current-link-color: var(--link-color-light);
+    --current-link-hover: var(--link-hover-light);
+    --current-border-color: var(--border-color-light);
+    --current-item-bg: var(--item-bg-light);
+    --card-shadow: var(--card-shadow-light);
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--current-bg-color);
+    color: var(--current-text-color);
+    transition: var(--theme-transition);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    font-size: 15px;
+    background-image: radial-gradient(at 0% 0%, hsl(240, 25%, 15%) 0px, transparent 50%),
+                      radial-gradient(at 100% 100%, hsl(180, 25%, 15%) 0px, transparent 50%);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+html[data-bs-theme="light"] body {
+    background-image: radial-gradient(at 0% 0%, hsla(210, 50%, 90%, 0.8) 0px, transparent 50%),
+                      radial-gradient(at 100% 100%, hsla(180, 50%, 90%, 0.8) 0px, transparent 50%);
+}
+
+@media (min-width: 768px) {
+    body { font-size: 16px; }
+}
+
+.main-container {
+    max-width: 720px;
+    width: 100%;
+    padding: 1.5rem;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.custom-navbar {
+    border-bottom: 1px solid var(--current-border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 2.5rem !important;
+}
+.custom-navbar .nav-link {
+    color: var(--current-text-muted);
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.9rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+    color: var(--current-text-color);
+    transform: translateY(-2px);
+}
+.custom-navbar .nav-link .bi {
+    font-size: 0.9em; margin-right: 0.35rem; vertical-align: -0.05em;
+}
+.theme-toggle-btn-custom {
+    background: none; border: none;
+    color: var(--current-text-muted);
+    padding: 0.25rem; font-size: 1.3rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.theme-toggle-btn-custom:hover {
+    color: var(--current-text-color);
+    transform: scale(1.1);
+}
+
+
+.site-heading .site-title {
+    font-size: 2.5rem; font-weight: 800;
+    /* Rainbow Text Animation */
+    background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    animation: rainbow 10s ease infinite; /* 10 saniyede bir döngü, sonsuz */
+    background-size: 400% 100%; /* Gradyanın genişliğini artır */
+}
+/* Rainbow Keyframes */
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Light temada rainbow animasyonunu etkileşimli yapalım veya değiştirelim */
+html[data-bs-theme="light"] .site-heading .site-title {
+    -webkit-text-fill-color: var(--text-color-light); /* Varsayılan metin rengi */
+    background: none; /* Gradyanı kaldır */
+    animation: none; /* Animasyonu kaldır */
+    /* Light temada hala bir efekt istersen, hover gibi şeyler eklenebilir */
+    /* background: linear-gradient(to right, #4CAF50, #2196F3); */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+}
+
+.site-404 .site-404-title {
+    font-size: 2.5rem; font-weight: 800;
+    /* Rainbow Text Animation */
+    background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    animation: rainbow 10s ease infinite; /* 10 saniyede bir döngü, sonsuz */
+    background-size: 400% 100%; /* Gradyanın genişliğini artır */
+}
+/* Rainbow Keyframes */
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Light temada rainbow animasyonunu etkileşimli yapalım veya değiştirelim */
+html[data-bs-theme="light"] .site-404 .site-404-title {
+    -webkit-text-fill-color: var(--text-color-light); /* Varsayılan metin rengi */
+    background: none; /* Gradyanı kaldır */
+    animation: none; /* Animasyonu kaldır */
+    /* Light temada hala bir efekt istersen, hover gibi şeyler eklenebilir */
+    /* background: linear-gradient(to right, #4CAF50, #2196F3); */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+}
+
+
+
+.site-heading .home-icon { font-size: 0.7em; vertical-align: middle; }
+.site-heading .lead-custom {
+    font-size: 1.05rem; color: var(--current-text-muted); font-weight: 400;
+}
+.site-heading .lead-custom .age-text,
+.site-heading .lead-custom .country-text { color: #ff4d4d; font-weight: 500; }
+.timestamp-text { color: var(--current-text-muted); font-size: 0.75rem; }
+
+.social-icon-link {
+    font-size: 1.1rem; color: var(--current-text-muted);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.social-icon-link:hover { color: var(--current-text-color); transform: translateY(-2px); }
+
+.section-title-custom {
+    font-size: 1.4rem; font-weight: 600; color: var(--current-text-color);
+    margin-bottom: 1rem !important; padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--current-border-color);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+html[data-bs-theme="light"] .section-title-custom {
+    text-shadow: none;
+}
+
+
+.presence-display,
+#ai-chat-section .p-4.rounded-3.bg-body-tertiary.shadow-sm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.5rem !important;
+    min-height: 70px;
+    background-color: var(--current-item-bg);
+    border: 1px solid var(--current-border-color);
+    border-radius: 1rem;
+    transition: opacity 0.3s ease, background-color var(--theme-transition), border-color var(--theme-transition), box-shadow 0.3s ease, transform 0.3s ease;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0.5rem 1.5rem var(--card-shadow);
+}
+
+.presence-display:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.8rem 1.5rem var(--card-shadow);
+}
+
+
+.card-content-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+
+.avatar-container {
+    position: relative;
+    flex-shrink: 0;
+}
+.status-dot {
+    position: absolute; bottom: -2px; right: -2px;
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 3px solid var(--current-item-bg);
+    box-sizing: content-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.status-online .status-dot, .status-dot.online { background-color: #2ecc71; }
+.status-idle .status-dot, .status-dot.idle { background-color: #f1c40f; }
+.status-dnd .status-dot, .status-dot.dnd { background-color: #e74c3c; }
+.status-offline .status-dot, .status-dot.offline { background-color: var(--current-text-muted); }
+
+
+.presence-display img.profile-avatar,
+.presence-display img.spotify-album-art {
+    width: 48px; height: 48px; object-fit: cover; flex-shrink: 0;
+}
+.presence-display img.profile-avatar { border-radius: 50%; }
+.presence-display img.spotify-album-art { border-radius: 6px; }
+.presence-display .spotify-album-art-placeholder {
+    width: 48px; height: 48px; border-radius: 6px;
+    background-color: var(--bs-secondary-bg-subtle);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--current-text-muted); font-size: 1.5em; flex-shrink: 0;
+}
+.presence-display .info {
+    flex-grow: 1; overflow: hidden; font-size: 0.9rem; line-height: 1.4;
+    min-width: 0; display: flex; flex-direction: column; justify-content: center;
+}
+.presence-display .info .name {
+    font-weight: 700;
+    color: var(--current-text-color); display: block;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 0.1rem; line-height: 1.2;
+}
+.presence-display .info .details,
+.presence-display .info .spotify-artist,
+.presence-display .info .spotify-album {
+    font-size: 0.8rem;
+    color: var(--current-text-muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 0; line-height: 1.2;
+}
+.presence-display .info a {
+    color: var(--current-text-color); text-decoration: none; font-weight: 600;
+    transition: color 0.2s ease;
+}
+.presence-display .info a:hover { color: var(--current-link-hover); }
+
+.presence-display .info .name .bi-steam {
+    color: #1b2838;
+}
+html[data-bs-theme="dark"] .presence-display .info .name .bi-steam {
+    color: #c7d5e0;
+}
+
+.discord-badges-container {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin-left: 0.4em;
+    gap: 0.2em;
+    flex-wrap: wrap;
+}
+
+.discord-badge {
+    height: 1.1em;
+    width: auto;
+    vertical-align: middle;
+}
+.discord-badge.bi {
+    font-size: 1em;
+    color: #a7a7a7;
+}
+.discord-badge:not(.bi) {
+    height: 18px;
+    width: 18px;
+}
+
+
+.spotify-progress-container {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.spotify-progress-bar-bg {
+    background-color: var(--bs-secondary-bg-subtle);
+    border-radius: 0.3rem;
+    height: 6px;
+    overflow: hidden;
+    width: 100%;
+}
+html[data-bs-theme="dark"] .spotify-progress-bar-bg {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.spotify-progress-bar-fg {
+    background-color: #1DB954;
+    height: 100%;
+    width: 0%;
+    border-radius: 0.3rem;
+    transition: width 0.2s linear;
+}
+html[data-bs-theme="dark"] .spotify-progress-bar-fg {
+     background-color: #1ed760;
+}
+
+
+.spotify-time-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--current-text-muted);
+    margin-top: 0.2rem;
+    line-height: 1;
+}
+
+#projects .card {
+    background-color: var(--current-item-bg) !important;
+    border: 1px solid var(--current-border-color) !important;
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0.3rem 0.8rem var(--card-shadow);
+}
+
+#projects .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.8rem 2rem var(--card-shadow);
+}
+
+#projects .card .card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+#projects .card .card-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--current-text-color) !important;
+    margin-bottom: 0.6rem;
+    height: calc(1.1em * 1.4 * 2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    flex-shrink: 0;
+}
+#projects .card .card-title a {
+    color: inherit !important;
+    text-decoration: none;
+}
+#projects .card .card-title a:hover {
+    color: var(--current-link-hover) !important;
+}
+
+#projects .card .card-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--current-text-muted);
+    margin-bottom: 1rem;
+    height: calc(0.85em * 1.5 * 3);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    flex-shrink: 0;
+}
+
+#projects .card .project-badges-container {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    flex-shrink: 0;
+    min-height: 35px;
+}
+
+#projects .card .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: .3em .6em;
+    border-radius: 0.35rem;
+}
+
+#projects .card .card-footer {
+    background-color: transparent !important;
+    border-top: 1px solid var(--current-border-color) !important;
+    font-size: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    flex-shrink: 0;
+}
+
+#steam-profile-summary .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+    border: 3px solid var(--current-border-color);
+}
+
+#steam-recent-games-grid .card {
+    background-color: var(--current-item-bg);
+    border: 1px solid var(--current-border-color);
+    height: 100%;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+#steam-recent-games-grid .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.4rem 1rem var(--card-shadow);
+}
+
+#youtube-videos-section .video-embed-wrapper {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 1.5rem var(--card-shadow);
+    background-color: var(--current-item-bg);
+    transition: box-shadow 0.3s ease;
+}
+#youtube-videos-section .video-embed-wrapper:hover {
+    box-shadow: 0 0.8rem 2rem var(--card-shadow);
+}
+
+#youtube-videos-section h2.section-title-custom i.bi-youtube {
+    color: #FF0000 !important;
+}
+
+html[data-bs-theme="light"] #youtube-videos-section h2.section-title-custom i.bi-youtube {
+    color: #c62121 !important;
+}
+
+#ai-chat-section .section-title-custom i.bi-robot {
+    color: #6a0dad !important;
+}
+html[data-bs-theme="light"] #ai-chat-section .section-title-custom i.bi-robot {
+    color: #551a8b !important;
+}
+#aiChatForm textarea.form-control {
+    resize: vertical !important;
+    min-height: 150px !important;
+    max-height: 300px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background-color: var(--bs-body-bg) !important;
+    color: var(--current-text-color) !important;
+    border-color: var(--current-border-color) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.75rem !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+#aiChatForm textarea.form-control:focus {
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+#aiChatResult {
+    border-radius: 0.75rem !important;
+    background-color: var(--bs-secondary-bg-subtle) !important;
+    border: 1px solid var(--current-border-color) !important;
+    padding: 1rem !important;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+}
+html[data-bs-theme="dark"] #aiChatResult {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+#aiChatResult .card-body {
+    background-color: transparent !important;
+    border-radius: 0.3rem;
+    padding: 0;
+}
+#aiChatResult .card-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--current-text-color);
+}
+
+
+.loading-placeholder {
+    color: var(--current-text-muted); font-style: italic;
+    width: 100%; font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+}
+.error-text-style { color: var(--bs-danger-text-emphasis); }
+
+.animated-content { opacity: 0; }
+.animated-content.loaded { opacity: 1; transition: opacity 0.5s ease-out; }
+
+/* Güncellenmiş Footer Metin Stili */
+.site-footer {
+    /* Mevcut stillerini koru */
+    min-height: 80px; /* İçerik için biraz daha yer açalım */
+}
+
+.site-footer p {
+    /* Mevcut stillerini koru */
+    font-size: 1.0rem; /* Daha küçük font */
+    font-weight: 300; /* Daha ince font */
+    color: var(--current-text-muted); /* Daha soluk bir renk */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Hafif bir gölge */
+    letter-spacing: 0.02em; /* Harf aralığını biraz aç */
+    line-height: 1.5; /* Satır yüksekliği */
+    max-width: 80%; /* Metnin çok geniş olmasını engelle */
+    margin: 0 auto; /* Ortala */
+    /* Animasyon stilleri değişmediyse kalabilir */
+}
+
+html[data-bs-theme="light"] .site-footer p {
+    color: var(--text-color-light); /* Açık temada metin rengi */
+    text-shadow: none; /* Açık temada gölgeyi kaldır */
+}
+
+/* Yazar/Kaynak metni için stil (eğer eklenirse) */
+.site-footer .quote-author {
+    display: block;
+    font-size: 0.85rem; /* Daha küçük */
+    font-style: italic;
+    color: var(--current-text-muted);
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+
+
+.play-favorite-track {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 1.2em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    background-color: #1DB954;
+    border-color: #1DB954;
+    color: white;
+}
+
+.play-favorite-track:hover {
+    background-color: #1ed760;
+    border-color: #1ed760;
+    transform: scale(1.05);
+}
+
+.play-favorite-track:active {
+    transform: scale(0.98);
+}
+
+.volume-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 1.2em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    background-color: var(--bs-secondary-bg-subtle);
+    border: 1px solid var(--current-border-color);
+    color: var(--current-text-color);
+}
+
+.volume-toggle-btn:hover {
+    background-color: var(--bs-secondary-bg);
+    transform: scale(1.05);
+}
+
+.volume-slider {
+    width: 100px;
+    max-width: 100px;
+    flex-shrink: 0;
+    accent-color: #1DB954;
+}
+
+.presence-display .info-text-small {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--current-border-color);
+    margin-top: 1rem;
+}
+
+.custom-divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--current-border-color);
+    opacity: 0.6;
+}
+html[data-bs-theme="dark"] .custom-divider {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Community Logos Section (Hafif Yatay Kartlar ve Detay Modal) */
+#community-logos-section {
+    padding: 2rem 0;
+}
+
+.community-logo-item {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    background-color: var(--current-item-bg);
+    border: 1px solid var(--current-border-color);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.4, 1); /* Yumuşak ve esnek bir geçiş */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 0.4rem 1.2rem var(--card-shadow);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d; /* 3D transformasyonlar için */
+    perspective: 1000px; /* 3D derinlik için */
+    transform: rotateY(-5deg); /* Başlangıçta hafif yatay eğim */
+}
+
+.community-logo-item:hover {
+    transform: translateY(-8px) rotateY(0deg) scale(1.05); /* Yukarı kayma, yatay eğimi düzeltme ve büyüme */
+    box-shadow: 0 1.2rem 3.5rem rgba(0, 0, 0, 0.3);
+    background-color: var(--bs-body-tertiary-bg);
+    border-color: var(--current-link-color);
+}
+
+html[data-bs-theme="dark"] .community-logo-item:hover {
+    box-shadow: 0 1.2rem 3.5rem rgba(0, 0, 0, 0.6);
+    background-color: rgba(12, 12, 12, 0.9);
+    border-color: var(--link-color-dark);
+}
+
+.community-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+    transition: transform 0.3s ease-in-out;
+    filter: brightness(1);
+    opacity: 1;
+}
+
+.community-logo-item:hover .community-logo {
+    transform: scale(1.1);
+}
+
+.community-logo-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--current-text-color);
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    white-space: nowrap;
+}
+
+.community-logo-item:hover .community-logo-text {
+    color: var(--current-link-hover);
+    transform: translateY(-3px);
+}
+
+/* Kenar Parlatması (Subtle Edge Glow) - Mevcut haliyle korundu */
+.community-logo-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    border: 3px solid transparent;
+    background: linear-gradient(45deg, var(--current-link-color), transparent 50%, var(--current-link-color)) border-box;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.community-logo-item:hover::before {
+    opacity: 1;
+    transform: scale(1);
+    animation: rotateGlow 5s linear infinite;
+}
+
+html[data-bs-theme="dark"] .community-logo-item::before {
+    background: linear-gradient(45deg, var(--link-color-dark), transparent 50%, var(--link-color-dark)) border-box;
+    box-shadow: 0 0 10px var(--link-color-dark);
+}
+
+@keyframes rotateGlow {
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+    to {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* İç Işık Halkası (Kartın Arkasında) - Mevcut haliyle korundu */
+.community-logo-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, var(--current-link-color) 0%, transparent 70%);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: 0;
+}
+
+.community-logo-item:hover::after {
+    width: 150px;
+    height: 150px;
+    opacity: 0.15;
+}
+
+html[data-bs-theme="dark"] .community-logo-item::after {
+    background: radial-gradient(circle at center, var(--link-color-dark) 0%, transparent 70%);
+}
+
+/* Modal Stilleri */
+.modal-content {
+    background-color: var(--current-item-bg);
+    color: var(--current-text-color);
+    border: 1px solid var(--current-border-color);
+    border-radius: 0.75rem;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    border-bottom-color: var(--current-border-color);
+}
+
+.modal-footer {
+    border-top-color: var(--current-border-color);
+    justify-content: center; /* Butonları ortala */
+}
+
+/* Metinlerin modal içinde daha iyi görünmesi için */
+.modal-body p {
+    color: var(--current-text-color);
+}
+
+.modal-body .text-muted {
+    color: var(--current-text-muted) !important;
+}
+
+.modal-body .fw-bold {
+    color: var(--current-text-color);
+}
+
+/* Mevcut .community-logo-item stillerinizin sonuna ekleyin */
+.community-logo-item {
+    /* ... mevcut stilleriniz ... */
+    position: relative; /* Overlay'ın doğru konumlanması için */
+    overflow: hidden;
+}
+
+.community-hint-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Koyu arka plan */
+    color: #fff; /* Beyaz metin */
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    opacity: 0; /* Başlangıçta gizli */
+    transform: translateY(100%); /* Aşağıdan yukarı kayarak gelmesi için */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none; /* Overlay'ın tıklama olaylarını engellemesini önler */
+    z-index: 5; /* Diğer içeriklerin üzerinde olması için */
+}
+
+/* Koyu tema için özelleştirmeler (isteğe bağlı) */
+html[data-bs-theme="dark"] .community-hint-overlay {
+    background-color: rgba(255, 255, 255, 0.15); /* Daha şeffaf arka plan */
+    color: var(--current-text-color);
+}
+
+/* Hint'in görünür ve animasyonlu hale gelmesi için */
+.community-hint-overlay.show-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hint'in kaybolması için */
+.community-hint-overlay.hide-hint {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+/* Yeni Global Hint Stili */
+#global-community-hint {
+    position: absolute; /* JavaScript ile dinamik konumlanacak */
+    background-color: var(--current-link-color); /* Vurgulu renk */
+    color: #fff;
+    padding: 0.5rem 1rem; /* Daha küçük dolgu (padding) */
+    font-size: 0.85rem; /* Metin boyutu */
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Başlangıçta gizli */
+    transform: translateY(-20px); /* Başlangıçta hafif yukarıda (animasyon için) */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    z-index: 1000; /* Diğer her şeyin üstünde olması için */
+    display: none; /* <-- Burayı 'none' olarak değiştirin veya ekleyin */
+    align-items: center;
+    justify-content: center; /* İçeriği yatayda ortala */
+    gap: 0.3rem; /* Metin ve ok arası daha küçük boşluk */
+    text-align: center;
+    white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
+}
+
+/* Koyu tema için özel renkler */
+html[data-bs-theme="dark"] #global-community-hint {
+    background-color: var(--link-color-dark);
+    color: var(--current-text-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
