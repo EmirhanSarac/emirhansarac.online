@@ -392,6 +392,91 @@ app.get('/api/discord-user-query', async (req, res) => {
     }
 });
 
+app.get('/api/discord-user-info', async (req, res) => {
+    if (!DISCORD_BOT_TOKEN || !discordClientReady) {
+        return res.status(503).json({ success: false, message: 'Discord botu aktif değil veya hazır değil.' });
+    }
+    if (!serverId) {
+        return res.status(500).json({ success: false, message: 'Discord Sunucu ID\'si eksik. Lütfen .env dosyasını kontrol edin.' });
+    }
+
+    const cacheKey = `discord-user-info-${discordUserId}`;
+    const cacheDuration = 20 * 1000; // 20 saniye önbellek
+
+    if (cache.has(cacheKey) && cache.get(cacheKey).expiry > Date.now()) {
+        console.log('Discord kullanıcı bilgisi (ana profil) önbellekten sunuldu.');
+        return res.json(cache.get(cacheKey).data);
+    }
+
+    let targetUser = null;
+    let targetMember = null;
+
+    try {
+        const guild = discordClient.guilds.cache.get(serverId);
+        if (!guild) {
+            console.warn(`Discord Sunucu ID'si ${serverId} bulunamadı veya bot bu sunucuya erişemiyor.`);
+            throw new Error(`Bot belirtilen sunucuya (${serverId}) erişemiyor.`);
+        }
+
+        targetUser = await discordClient.users.fetch(discordUserId, { force: true });
+        if (targetUser) {
+            targetMember = await guild.members.fetch({ user: targetUser.id, force: true }).catch(() => null);
+        }
+
+        if (!targetUser) {
+            return res.status(404).json({ success: false, message: 'Belirtilen Discord kullanıcısı bulunamadı.' });
+        }
+
+        let status = 'offline';
+        let serverNickname = null;
+        let customStatus = null;
+        let activities = [];
+
+        if (targetMember) {
+            status = targetMember.presence?.status || 'offline';
+            serverNickname = targetMember.nickname;
+            if (targetMember.presence && targetMember.presence.activities) {
+                activities = targetMember.presence.activities.map(activity => ({
+                    type: activity.type,
+                    name: activity.name,
+                    details: activity.details,
+                    state: activity.state,
+                    url: activity.url
+                }));
+                const custom = targetMember.presence.activities.find(act => act.type === ActivityType.Custom && act.state);
+                if (custom) customStatus = custom.state;
+            }
+        } else {
+            console.log(`Ana kullanıcı ID'si ${discordUserId} sunucuda ${serverId} bulunamadı. Sadece global bilgiler gösteriliyor.`);
+            status = 'offline';
+        }
+
+        const userPublicFlags = targetUser.flags ? targetUser.flags.toArray() : [];
+
+        const responseData = {
+            success: true,
+            username: targetUser.username,
+            globalName: targetUser.globalName,
+            displayName: targetUser.displayName,
+            serverNickname: serverNickname,
+            avatarURL: targetUser.displayAvatarURL({ dynamic: true, size: 128 }), // Gerçek avatar URL'sini kullanın
+            status: status,
+            customStatus: customStatus,
+            publicFlags: userPublicFlags,
+            activities: activities
+        };
+        cache.set(cacheKey, { data: responseData, expiry: Date.now() + cacheDuration });
+        console.log('Discord kullanıcı bilgisi (ana profil) API\'den çekildi ve önbelleğe alındı.');
+        res.json(responseData);
+    } catch (error) {
+        console.error('/api/discord-user-info genel hata yakalandı:', error);
+        res.status(500).json({
+            success: false,
+            message: `Discord bilgileri alınamadı: ${error.message}`
+        });
+    }
+});
+
 app.get('/api/youtube-channel-info', async (req, res) => {
     if (!GOOGLE_API_KEY || !YOUR_YOUTUBE_CHANNEL_ID) {
         return res.status(500).json({ success: false, message: 'YouTube API anahtarı veya Kanal ID\'si eksik. Lütfen .env dosyasını kontrol edin.' });
